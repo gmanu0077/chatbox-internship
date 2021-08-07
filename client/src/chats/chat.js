@@ -8,15 +8,16 @@ import '../style/App.css'
 class Chat extends Component{
 state={
     topic:"",
-    data:[]
-    
+    data:[],
+    user:""
 }
 componentDidMount(){
     
-    axios.get("http://localhost:7000/chat/topics")
+    axios.get("http://localhost:7000/chat/")
     .then((data)=>{
         this.setState({
-            data:data.data
+            data:data.data.chats,
+            user:data.data.user
         })
     })
     this.setState({
@@ -28,14 +29,14 @@ back=()=>{
 }
 
 render(){
-    console.log(this.state)
 
 return(
      <div className="main container">
      
     <div className="box1 container ">
-    <button className="btn right" onClick={this.back}>back</button>
-     <Card  topic={this.state.topic} mess={this.state.data} back={this.back}/>
+    <div className="back">
+    <button className="btn  right" onClick={this.back}>back</button></div>
+     <Card  topic={this.state.topic} mess={this.state.data} back={this.back} user={this.state.user} />
      
     </div>
     
